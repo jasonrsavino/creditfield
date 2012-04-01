@@ -1,0 +1,3 @@
+name = Credit Field
+description = Defines credit card fields for use in the Drupal Form API.
+core = 7.x
