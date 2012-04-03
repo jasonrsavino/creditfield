@@ -51,7 +51,8 @@ Currently, the following validation is performed:
 What this module doesn't do
 ===========================
 
-This module does -not- handle submitting payment data to payment processors. That part is entirely up to you.
+This module does -not- handle submitting payment data to payment processors. It also does not validate against specific card types (Visa, MC, etc). That 
+part is entirely up to you.
 
 Warnings
 ===============
