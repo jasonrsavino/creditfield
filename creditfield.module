@@ -46,12 +46,12 @@ function creditfield_element_info() {
  */
 
 function creditfield_cardnumber_validate($element) {
-  if (!is_numeric($element['#value'])) {
-    form_error($element, t('Please enter a valid credit card number.'));
-  }
-
   // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
   $cardnumber = preg_replace('/\D/', '', $element['#value']);
+
+  if (!is_numeric($cardnumber)) {
+    form_error($element, t('Please enter a valid credit card number.'));
+  }
 
   // Set the string length and parity
   $cardnumber_length = drupal_strlen($cardnumber);
