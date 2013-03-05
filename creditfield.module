@@ -2,10 +2,8 @@
 
 /**
  * Implements hook_element_info().
- *
  * @return array
  */
-
 function creditfield_element_info() {
   $types['creditfield_cardnumber'] = array(
     '#input' => TRUE,
@@ -41,10 +39,8 @@ function creditfield_element_info() {
 /**
  * Validate callback for credit card number fields.
  * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
- *
  * @param array $element
  */
-
 function creditfield_cardnumber_validate($element) {
   // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
   $cardnumber = preg_replace('/\D/', '', $element['#value']);
@@ -84,10 +80,8 @@ function creditfield_cardnumber_validate($element) {
 
 /**
  * Validate callback for credit card expiration date.
- *
- * @param type $element
+ * @param $element
  */
-
 function creditfield_date_validate($element) {
   if ($element['#value']['year'] == date('Y', time()) && $element['#value']['month'] < date('m', time())) {
     form_error($element, t('Please enter a valid expiration date.'));
@@ -96,10 +90,8 @@ function creditfield_date_validate($element) {
 
 /**
  * Validate callback for credit card cvv number fields.
- *
- * @param type $element
+ * @param $element
  */
-
 function creditfield_cvv_validate($element) {
   if (!is_numeric($element['#value'])) {
     form_error($element, t('Please enter a valid CVV number.'));
@@ -108,10 +100,8 @@ function creditfield_cvv_validate($element) {
 
 /**
  * Form element process callback.
- *
- * @param type $element
+ * @param $element
  */
-
 function form_process_creditfield($element) {
   return $element;
 }
@@ -125,7 +115,6 @@ function form_process_creditfield($element) {
  * @return
  *   The processed element.
  */
-
 function form_process_creditfield_date($element) {
   // Default to current date
   if (empty($element['#value'])) {
@@ -144,6 +133,7 @@ function form_process_creditfield_date($element) {
   $sort['year'] = strpos($format, 'Y');
   asort($sort);
   $order = array_keys($sort);
+  $options = array();
 
   // Output multi-selector for date.
   foreach ($order as $type) {
