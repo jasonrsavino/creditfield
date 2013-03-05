@@ -96,8 +96,7 @@ function creditfield_date_validate($element) {
 
 /**
  * Validate callback for credit card cvv number fields.
- *
- * @param type $element
+ * @param $element
  */
 
 function creditfield_cvv_validate($element) {
@@ -108,8 +107,7 @@ function creditfield_cvv_validate($element) {
 
 /**
  * Form element process callback.
- *
- * @param type $element
+ * @param $element
  */
 
 function form_process_creditfield($element) {
@@ -144,6 +142,7 @@ function form_process_creditfield_date($element) {
   $sort['year'] = strpos($format, 'Y');
   asort($sort);
   $order = array_keys($sort);
+  $options = array();
 
   // Output multi-selector for date.
   foreach ($order as $type) {
