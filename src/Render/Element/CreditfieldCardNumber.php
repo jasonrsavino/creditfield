@@ -5,7 +5,7 @@
  * Contains \Drupal\Creditfield\Render\Element\CreditfieldCardnumber.
  */
 
-namespace Drupal\Core\Render\Element;
+namespace Drupal\Creditfield\Render\Element;
 
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Render\Element;
