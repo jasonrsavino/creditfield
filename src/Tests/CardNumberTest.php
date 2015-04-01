@@ -2,34 +2,34 @@
 
 /**
  * @file
- * Contains \Drupal\creditfield\Tests\CreditfieldCardnumberTest.
+ * Contains \Drupal\creditfield\Tests\CardNumberTest.
  */
 
 namespace Drupal\creditfield\Tests;
 
-use Drupal\creditfield\Element\CreditfieldCardnumber;
+use Drupal\creditfield\Element\Cardnumber;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\creditfield\Element\CreditfieldCardnumber
+ * @coversDefaultClass \Drupal\creditfield\Element\CardNumber
  * @group Creditfield
  */
-class CreditfieldCardnumberTest extends UnitTestCase {
+class CardNumberTest extends UnitTestCase {
 
   /**
    * @covers ::numberIsValid
    * @dataProvider providerValidCardNumbers
    */
   public function testGoodNumberValidation($number) {
-    return $this->assertTrue(CreditfieldCardnumber::numberIsValid($number), 'Number "' . $number . '" should have passed validation, but did not.');
+    return $this->assertTrue(CardNumber::numberIsValid($number), 'Number "' . $number . '" should have passed validation, but did not.');
   }
 
   /**
    * @covers ::numberIsValid
-   * @dataProvider providerValidCardNumbers
+   * @dataProvider providerInvalidCardNumbers
    */
   public function testBadNumberValidation($number) {
-    return $this->assertTrue(CreditfieldCardnumber::numberIsValid($number), 'Number "' . $number . '" should not have passed validation, but did.');
+    return $this->assertFalse(CardNumber::numberIsValid($number), 'Number "' . $number . '" should not have passed validation, but did.');
   }
 
   /**
@@ -55,10 +55,16 @@ class CreditfieldCardnumberTest extends UnitTestCase {
     );
   }
 
+  /**
+   * Data provider of valid test numbers. Includes variants that should fail, like negative numbers, alphanumeric characters, values that are too short, or too long.
+   * @return array
+   */
   public function providerInvalidCardNumbers() {
     return array(
       array('424224242'),
-      array('40128888888881'),
+      array('4012888888881881445353'),
+      array('-4242424242424242'),
+      array('40128888.10'),
       array('4242aBcD24244242'),
       array('ABCDEFGHIJKL'),
       array('1234828282828210'),
