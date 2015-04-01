@@ -30,14 +30,13 @@ class CreditfieldCVV extends FormElement {
       '#maxlength' => 4,
       '#autocomplete_route_name' => FALSE,
       '#element_validate' => array(
-        array($class, 'validateCreditfieldCVV')
+        array($class, 'validateCVV')
       ),
       '#process' => array(
-        array($class, 'processCreditfieldCVV'),
+        array($class, 'processCVV'),
       ),
       '#pre_render' => array(
-        array($class, 'preRenderTextfield'),
-        array($class, 'preRenderGroup'),
+        array($class, 'preRenderCVV'),
       ),
       '#theme' => 'input__textfield',
       '#theme_wrappers' => array('form_element'),
@@ -47,7 +46,7 @@ class CreditfieldCVV extends FormElement {
   /**
    * {@inheritdoc}
    */
-  public static function processCreditfieldCVV(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function processCVV(&$element, FormStateInterface $form_state, &$complete_form) {
     return $element;
   }
 
@@ -56,7 +55,7 @@ class CreditfieldCVV extends FormElement {
    * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
    * @param array $element
    */
-  public static function validateCreditfieldCVV(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function validateCVV(&$element, FormStateInterface $form_state, &$complete_form) {
     if (!is_numeric($element['#value'])) {
       $form_state->form_error($element, t('Please enter a valid CVV number.'));
     }
@@ -71,5 +70,24 @@ class CreditfieldCVV extends FormElement {
       // validation.
       return str_replace(array("\r", "\n"), '', $input);
     }
+  }
+
+  /**
+   * Prepares a #type 'creditfield_cvv' render element for input.html.twig.
+   *
+   * @param array $element
+   *   An associative array containing the properties of the element.
+   *   Properties used: #title, #value, #description, #size, #maxlength,
+   *   #placeholder, #required, #attributes.
+   *
+   * @return array
+   *   The $element with prepared variables ready for input.html.twig.
+   */
+  public static function preRenderCVV($element) {
+    $element['#attributes']['type'] = 'text';
+    Element::setAttributes($element, array('id', 'name', 'value', 'size', 'maxlength', 'placeholder'));
+    static::setAttributes($element, array('form-text'));
+
+    return $element;
   }
 }
