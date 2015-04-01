@@ -1,11 +1,11 @@
 Introduction
 ===============
 
-Creditfield is a small proof of concept module that provides 3 fields to be used in the Drupal Form API for custom forms:
+Creditfield is a small proof of concept module that provides 3 form elements to be used in the Drupal FormAPI for custom forms:
 
 - Credit Card Number
 - Credit Card Expiration Date
-- Credit Card CVV
+- Credit Card Code
 
 These fields provide basic validation and form errors on their own (including Luhn check against card number). 
 You could easily add more within your own form validation callbacks as well.
@@ -30,12 +30,12 @@ $form['credit_card_number'] = array(
 );
     
 $form['expiration_date'] = array(
-  '#type' => 'creditfield_date',
+  '#type' => 'creditfield_expiration',
   '#title' => 'Expiration Date',
 );
 
 $form['credit_card_cvv'] = array(
-  '#type' => 'creditfield_cvv',
+  '#type' => 'creditfield_cardcode',
   '#title' => 'CVV Code',
   '#maxlength' => 4,
   '#description' => 'Your 3 or 4 digit security code on the back of your card.',
