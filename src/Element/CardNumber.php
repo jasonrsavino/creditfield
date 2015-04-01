@@ -104,6 +104,11 @@ class CardNumber extends FormElement {
 
     // Set the string length and parity
     $cardnumber_length = Unicode::strlen($value);
+
+    if ($cardnumber_length < 14 || $cardnumber_length > 16) {
+      return FALSE;
+    }
+
     $parity = $cardnumber_length % 2;
 
     // Loop through each digit and do the maths
