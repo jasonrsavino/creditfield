@@ -107,7 +107,7 @@ class CreditfieldCardnumber extends FormElement {
   }
 
   /**
-   * Prepares a #type 'textfield' render element for input.html.twig.
+   * Prepares a #type 'creditfield_cardnumber' render element for input.html.twig.
    *
    * @param array $element
    *   An associative array containing the properties of the element.
