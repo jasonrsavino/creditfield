@@ -1,84 +1,84 @@
 <?php
 
-/**
- * Implements hook_element_info().
- * @return array
- */
-function creditfield_element_info() {
-
-  $types['creditfield_date'] = array(
-    '#input' => TRUE,
-    '#element_validate' => array('creditfield_date_validate'),
-    '#process' => array('form_process_creditfield_date'),
-    '#theme' => 'date',
-    '#theme_wrappers' => array('form_element'),
-  );
-
-  return $types;
-}
-
-/**
- * Validate callback for credit card expiration date.
- * @param $element
- */
-function creditfield_date_validate($element) {
-  if ($element['#value']['year'] == date('Y', time()) && $element['#value']['month'] < date('m', time())) {
-    form_error($element, t('Please enter a valid expiration date.'));
-  }
-}
-
-/**
- * Element process callback; adds support for credit expiration date entry.
- *
- * @param $element
- *   An associative array containing the properties of the element.
- *
- * @return
- *   The processed element.
- */
-function form_process_creditfield_date($element) {
-  // Default to current date
-  if (empty($element['#value'])) {
-    $element['#value'] = array(
-      'month' => format_date(REQUEST_TIME, 'custom', 'n'),
-      'year' => format_date(REQUEST_TIME, 'custom', 'Y'),
-    );
-  }
-
-  $element['#tree'] = TRUE;
-
-  // Determine the order of month & year in the site's chosen date format.
-  $format = variable_get('date_format_short', 'm/Y');
-  $sort = array();
-  $sort['month'] = max(strpos($format, 'm'), strpos($format, 'M'));
-  $sort['year'] = strpos($format, 'Y');
-  asort($sort);
-  $order = array_keys($sort);
-  $options = array();
-
-  // Output multi-selector for date.
-  foreach ($order as $type) {
-    switch ($type) {
-      case 'month':
-        $options = drupal_map_assoc(range(1, 12), 'map_month');
-        $title = t('Month');
-        break;
-
-      case 'year':
-        $options = drupal_map_assoc(range(date('Y', time()), date('Y', time()) + 10));
-        $title = t('Year');
-        break;
-    }
-
-    $element[$type] = array(
-      '#type' => 'select',
-      '#title' => $title,
-      '#title_display' => 'invisible',
-      '#value' => $element['#value'][$type],
-      '#attributes' => $element['#attributes'],
-      '#options' => $options,
-    );
-  }
-
-  return $element;
-}
+///**
+// * Implements hook_element_info().
+// * @return array
+// */
+//function creditfield_element_info() {
+//
+//  $types['creditfield_date'] = array(
+//    '#input' => TRUE,
+//    '#element_validate' => array('creditfield_date_validate'),
+//    '#process' => array('form_process_creditfield_date'),
+//    '#theme' => 'date',
+//    '#theme_wrappers' => array('form_element'),
+//  );
+//
+//  return $types;
+//}
+//
+///**
+// * Validate callback for credit card expiration date.
+// * @param $element
+// */
+//function creditfield_date_validate($element) {
+//  if ($element['#value']['year'] == date('Y', time()) && $element['#value']['month'] < date('m', time())) {
+//    form_error($element, t('Please enter a valid expiration date.'));
+//  }
+//}
+//
+///**
+// * Element process callback; adds support for credit expiration date entry.
+// *
+// * @param $element
+// *   An associative array containing the properties of the element.
+// *
+// * @return
+// *   The processed element.
+// */
+//function form_process_creditfield_date($element) {
+//  // Default to current date
+//  if (empty($element['#value'])) {
+//    $element['#value'] = array(
+//      'month' => format_date(REQUEST_TIME, 'custom', 'n'),
+//      'year' => format_date(REQUEST_TIME, 'custom', 'Y'),
+//    );
+//  }
+//
+//  $element['#tree'] = TRUE;
+//
+//  // Determine the order of month & year in the site's chosen date format.
+//  $format = variable_get('date_format_short', 'm/Y');
+//  $sort = array();
+//  $sort['month'] = max(strpos($format, 'm'), strpos($format, 'M'));
+//  $sort['year'] = strpos($format, 'Y');
+//  asort($sort);
+//  $order = array_keys($sort);
+//  $options = array();
+//
+//  // Output multi-selector for date.
+//  foreach ($order as $type) {
+//    switch ($type) {
+//      case 'month':
+//        $options = drupal_map_assoc(range(1, 12), 'map_month');
+//        $title = t('Month');
+//        break;
+//
+//      case 'year':
+//        $options = drupal_map_assoc(range(date('Y', time()), date('Y', time()) + 10));
+//        $title = t('Year');
+//        break;
+//    }
+//
+//    $element[$type] = array(
+//      '#type' => 'select',
+//      '#title' => $title,
+//      '#title_display' => 'invisible',
+//      '#value' => $element['#value'][$type],
+//      '#attributes' => $element['#attributes'],
+//      '#options' => $options,
+//    );
+//  }
+//
+//  return $element;
+//}
