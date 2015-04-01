@@ -2,12 +2,13 @@
 
 /**
  * @file
- * Contains \Drupal\Creditfield\Render\Element\CreditfieldCVV.
+ * Contains \Drupal\creditfield\Element\CreditfieldCVV.
  */
 
-namespace Drupal\Creditfield\Render\Element;
+namespace Drupal\creditfield\Element;
 
 use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
 use \Drupal\Component\Utility\Unicode as Unicode;
 

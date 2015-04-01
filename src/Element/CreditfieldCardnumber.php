@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\Creditfield\Render\Element\CreditfieldCardnumber.
+ * Contains \Drupal\creditfield\Element\CreditfieldCardnumber.
  */
 
-namespace Drupal\Creditfield\Render\Element;
+namespace Drupal\creditfield\Element;
 
 use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
@@ -59,10 +59,6 @@ class CreditfieldCardnumber extends FormElement {
   public static function validateCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
     // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
     $cardnumber = preg_replace('/\D/', '', $element['#value']);
-
-    if ($cardnumber === '') {
-      return;
-    }
 
     if (!is_numeric($cardnumber)) {
       $form_state->setError($element, t('Please enter a valid credit card number.'));
