@@ -20,7 +20,7 @@ class CardCodeTest extends UnitTestCase {
    * @covers ::numberIsValid
    * @dataProvider providerValidCardCodeNumbers
    */
-  public function testGoodNumberValidation($number) {
+  public function testGoodCodeValidation($number) {
     return $this->assertTrue(CardCode::numberIsValid($number), 'Number code "' . $number . '" should have passed validation, but did not.');
   }
 
@@ -28,12 +28,12 @@ class CardCodeTest extends UnitTestCase {
    * @covers ::numberIsValid
    * @dataProvider providerInvalidCardCodeNumbers
    */
-  public function testBadNumberValidation($number) {
+  public function testBadCodeValidation($number) {
     return $this->assertFalse(CardCode::numberIsValid($number), 'Number code "' . $number . '" should not have passed validation, but did.');
   }
 
   /**
-   * Data provider of valid test numbers. Includes variants that should pass validation.
+   * Data provider of valid test codes. Includes variants that should pass validation.
    * @return array
    */
   public function providerValidCardCodeNumbers() {
@@ -47,13 +47,14 @@ class CardCodeTest extends UnitTestCase {
   }
 
   /**
-   * Data provider of valid test numbers. Includes variants that should fail, like negative numbers, alphanumeric characters, values that are too short, or too long.
+   * Data provider of valid test codes. Includes variants that should fail, like negative numbers, alphanumeric characters, values that are too short, or too long.
    * @return array
    */
   public function providerInvalidCardCodeNumbers() {
     return array(
       array('1.1'),
       array('4af'),
+      array('8724372'),
       array('3'),
       array('-134'),
       array(''),
