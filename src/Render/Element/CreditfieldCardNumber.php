@@ -7,8 +7,9 @@
 
 namespace Drupal\Creditfield\Render\Element;
 
-use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
+use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Component\Utility\Unicode as Unicode;
 
 /**
@@ -30,14 +31,13 @@ class CreditfieldCardnumber extends FormElement {
       '#maxlength' => 16,
       '#autocomplete_route_name' => FALSE,
       '#element_validate' => array(
-        array($class, 'validateCreditfieldCardnumber')
+        array($class, 'validateCardnumber')
       ),
       '#process' => array(
-        array($class, 'processCreditfieldCardnumber'),
+        array($class, 'processCardnumber'),
       ),
       '#pre_render' => array(
-        array($class, 'preRenderTextfield'),
-        array($class, 'preRenderGroup'),
+        array($class, 'preRenderCardnumber'),
       ),
       '#theme' => 'input__textfield',
       '#theme_wrappers' => array('form_element'),
@@ -47,7 +47,7 @@ class CreditfieldCardnumber extends FormElement {
   /**
    * {@inheritdoc}
    */
-  public static function processCreditfieldCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function processCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
     return $element;
   }
 
@@ -56,7 +56,7 @@ class CreditfieldCardnumber extends FormElement {
    * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
    * @param array $element
    */
-  public static function validateCreditfieldCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function validateCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
     // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
     $cardnumber = preg_replace('/\D/', '', $element['#value']);
 
@@ -108,5 +108,24 @@ class CreditfieldCardnumber extends FormElement {
       // validation.
       return str_replace(array("\r", "\n"), '', $input);
     }
+  }
+
+  /**
+   * Prepares a #type 'textfield' render element for input.html.twig.
+   *
+   * @param array $element
+   *   An associative array containing the properties of the element.
+   *   Properties used: #title, #value, #description, #size, #maxlength,
+   *   #placeholder, #required, #attributes.
+   *
+   * @return array
+   *   The $element with prepared variables ready for input.html.twig.
+   */
+  public static function preRenderCardnumber($element) {
+    $element['#attributes']['type'] = 'text';
+    Element::setAttributes($element, array('id', 'name', 'value', 'size', 'maxlength', 'placeholder'));
+    static::setAttributes($element, array('form-text'));
+
+    return $element;
   }
 }
