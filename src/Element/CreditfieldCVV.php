@@ -7,10 +7,9 @@
 
 namespace Drupal\creditfield\Element;
 
-use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
-use \Drupal\Component\Utility\Unicode as Unicode;
+use \Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a one-line credit card number field form element.
@@ -57,7 +56,7 @@ class CreditfieldCVV extends FormElement {
    */
   public static function validateCVV(&$element, FormStateInterface $form_state, &$complete_form) {
     if (!is_numeric($element['#value'])) {
-      $form_state->form_error($element, t('Please enter a valid CVV number.'));
+      $form_state->setError($element, t('Please enter a valid CVV number.'));
     }
   }
 
