@@ -52,44 +52,10 @@ class CreditfieldCardnumber extends FormElement {
   }
 
   /**
-   * Validate callback for credit card number fields.
-   * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
-   * @param array $element
+   * {@inheritdoc}
    */
   public static function validateCardnumber(&$element, FormStateInterface $form_state, &$complete_form) {
-    // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
-    $cardnumber = preg_replace('/\D/', '', $element['#value']);
-
-    if (!is_numeric($cardnumber)) {
-      $form_state->setError($element, t('Please enter a valid credit card number.'));
-      return;
-    }
-
-    // Set the string length and parity
-    $cardnumber_length = Unicode::strlen($cardnumber);
-    $parity = $cardnumber_length % 2;
-
-    // Loop through each digit and do the maths
-    $total=0;
-
-    for ($i = 0; $i < $cardnumber_length; $i++) {
-      $digit = $cardnumber[$i];
-      // Multiply alternate digits by two
-      if ($i % 2 == $parity) {
-        $digit *= 2;
-        // If the sum is two digits, add them together (in effect)
-        if ($digit > 9) {
-          $digit -= 9;
-        }
-      }
-      // Total up the digits
-      $total += $digit;
-    }
-
-    // If the total mod 10 equals 0, the number is valid
-    $valid = ($total % 10 == 0) ? TRUE : FALSE;
-
-    if (!$valid) {
+    if (!static::numberIsValid($element['#value'])) {
       $form_state->setError($element, t('Your card appears to be invalid. Please check the numbers and try again.'));
       return;
     }
@@ -121,7 +87,43 @@ class CreditfieldCardnumber extends FormElement {
     $element['#attributes']['type'] = 'text';
     Element::setAttributes($element, array('id', 'name', 'value', 'size', 'maxlength', 'placeholder'));
     static::setAttributes($element, array('form-text'));
-
     return $element;
+  }
+
+  /**
+   * Validate callback for credit card number form fields.
+   * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
+   * @param $value
+   * @return bool
+   */
+  public static function numberIsValid($value) {
+    // short circuit here if string is blank or contains non numeric characters
+    if (!is_numeric($value)) {
+      return FALSE;
+    }
+
+    // Set the string length and parity
+    $cardnumber_length = Unicode::strlen($value);
+    $parity = $cardnumber_length % 2;
+
+    // Loop through each digit and do the maths
+    $total=0;
+
+    for ($i = 0; $i < $cardnumber_length; $i++) {
+      $digit = $value[$i];
+      // Multiply alternate digits by two
+      if ($i % 2 == $parity) {
+        $digit *= 2;
+        // If the sum is two digits, add them together (in effect)
+        if ($digit > 9) {
+          $digit -= 9;
+        }
+      }
+      // Total up the digits
+      $total += $digit;
+    }
+
+    // If the total mod 10 equals 0, the number is valid
+    return ($total % 10 == 0) ? TRUE : FALSE;
   }
 }
