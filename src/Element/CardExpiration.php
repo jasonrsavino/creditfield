@@ -28,13 +28,13 @@ class CardExpiration extends FormElement {
     return array(
       '#input' => TRUE,
       '#element_validate' => array(
-        array($class, 'validateCreditfieldExpiration')
+        array($class, 'validateCardExpiration')
       ),
       '#process' => array(
-        array($class, 'processCreditfieldExpiration'),
+        array($class, 'processCardExpiration'),
       ),
       '#pre_render' => array(
-        array($class, 'preRenderDate'),
+        array($class, 'preRenderCardExpiration'),
       ),
       '#theme' => 'input__date',
       '#theme_wrappers' => array('form_element'),
@@ -44,66 +44,21 @@ class CardExpiration extends FormElement {
   /**
    * {@inheritdoc}
    */
-  public static function processCreditfieldExpiration(&$element, FormStateInterface $form_state, &$complete_form) {
-    // Default to current date
-    if (empty($element['#value'])) {
-      $element['#value'] = array(
-        'month' => format_date(REQUEST_TIME, 'custom', 'n'),
-        'year' => format_date(REQUEST_TIME, 'custom', 'Y'),
-      );
-    }
-
-    $element['#tree'] = TRUE;
-
-    // Determine the order of month & year in the site's chosen date format.
-    $format = variable_get('date_format_short', 'm/Y');
-    $sort = array();
-    $sort['month'] = max(strpos($format, 'm'), strpos($format, 'M'));
-    $sort['year'] = strpos($format, 'Y');
-    asort($sort);
-    $order = array_keys($sort);
-    $options = array();
-
-    // Output multi-selector for date.
-    foreach ($order as $type) {
-      switch ($type) {
-        case 'month':
-          $options = drupal_map_assoc(range(1, 12), 'map_month');
-          $title = t('Month');
-          break;
-
-        case 'year':
-          $options = drupal_map_assoc(range(date('Y', time()), date('Y', time()) + 10));
-          $title = t('Year');
-          break;
-      }
-
-      $element[$type] = array(
-        '#type' => 'select',
-        '#title' => $title,
-        '#title_display' => 'invisible',
-        '#value' => $element['#value'][$type],
-        '#attributes' => $element['#attributes'],
-        '#options' => $options,
-      );
-    }
-
+  public static function processCardExpiration(&$element, FormStateInterface $form_state, &$complete_form) {
     return $element;
   }
 
   /**
-   * Validate callback for credit card number fields.
-   * Luhn algorithm number checker - (c) 2005-2008 shaman - www.planzero.org
-   * @param array $element
+   * {@inheritdoc}
    */
-  public static function validateCreditfieldExpiration(&$element, FormStateInterface $form_state, &$complete_form) {
-    if ($element['#value']['year'] == date('Y', time()) && $element['#value']['month'] < date('m', time())) {
-      $form_state->form_error($element, t('Please enter a valid expiration date.'));
+  public static function validateCardExpiration(&$element, FormStateInterface $form_state, &$complete_form) {
+    if (!static::dateIsValid($element['#value'])) {
+      $form_state->setError($element, t('Please enter a valid expiration date.'));
     }
   }
 
   /**
-   * Adds form-specific attributes to a 'date' #type element.
+   * Adds form-specific attributes to a 'creditfield_expiration' #type element.
    *
    * Supports HTML5 types of 'date', 'datetime', 'datetime-local', and 'time'.
    * Falls back to a plain textfield. Used as a sub-element by the datetime
@@ -121,13 +76,36 @@ class CardExpiration extends FormElement {
    * @return array
    *   The $element with prepared variables ready for #theme 'input__date'.
    */
-  public static function preRenderDate($element) {
-    if (empty($element['#attributes']['type'])) {
-      $element['#attributes']['type'] = 'date';
-    }
+  public static function preRenderCardExpiration($element) {
+    $element['#attributes']['type'] = 'month';
     Element::setAttributes($element, array('id', 'name', 'type', 'min', 'max', 'step', 'value', 'size'));
     static::setAttributes($element, array('form-' . $element['#attributes']['type']));
 
     return $element;
+  }
+
+  /**
+   * Simple date check to determine if the expiration date is in the future from right now.
+   * @param $value
+   * @return bool
+   */
+  public static function dateIsValid($value) {
+    if (!Unicode::strlen($value)) {
+      return FALSE;
+    }
+
+    $dateparts = explode('-', $value);
+    $year = (int) $dateparts[0];
+    $month = (int) $dateparts[1];
+
+    if ($year < date('Y') || !is_integer($year)) {
+      return FALSE;
+    }
+
+    if ($year == date('Y') && $month <= date('m')) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 }
