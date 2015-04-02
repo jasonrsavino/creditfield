@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\creditfield\Tests\CardNumberTest.
+ * Contains \Drupal\creditfield\Tests\Unit\Element\CardNumberTest.
  */
 
-namespace Drupal\creditfield\Tests;
+namespace Drupal\creditfield\Tests\Unit\Element;
 
 use Drupal\creditfield\Element\Cardnumber;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\creditfield\Element\CardNumber
- * @group Creditfield
+ * @group creditfield
  */
 class CardNumberTest extends UnitTestCase {
 

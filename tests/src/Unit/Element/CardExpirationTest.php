@@ -2,18 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\creditfield\Tests\CardExpirationTest.
+ * Contains \Drupal\creditfield\Tests\Unit\Element\CardExpirationTest.
  */
 
-namespace Drupal\creditfield\Tests;
+namespace Drupal\creditfield\Tests\Unit\Element;
 
-use Drupal\Core\Datetime\DateFormatter;
 use Drupal\creditfield\Element\CardExpiration;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\creditfield\Element\CardExpiration
- * @group Creditfield
+ * @group creditfield
  */
 class CardExpirationTest extends UnitTestCase {
 
