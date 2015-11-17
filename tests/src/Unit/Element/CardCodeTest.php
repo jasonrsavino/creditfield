@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\creditfield\Tests\Unit\Element\CardCodeTest.
+ * Contains \Drupal\Tests\creditfield\Unit\Element\CardCodeTest.
  */
 
-namespace Drupal\creditfield\Tests\Unit\Element;
+namespace Drupal\Tests\creditfield\Unit\Element;
 
 use Drupal\creditfield\Element\CardCode;
 use Drupal\Tests\UnitTestCase;

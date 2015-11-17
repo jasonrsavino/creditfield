@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains \Drupal\creditfield\Tests\Unit\Element\CardNumberTest.
+ * Contains \Drupal\Tests\creditfield\Unit\Element\CardNumberTest.
  */
 
-namespace Drupal\creditfield\Tests\Unit\Element;
+namespace Drupal\Tests\creditfield\Unit\Element;
 
-use Drupal\creditfield\Element\Cardnumber;
+use Drupal\creditfield\Element\CardNumber;
 use Drupal\Tests\UnitTestCase;
 
 /**
