@@ -1,4 +1,5 @@
-name: Credit Field
+name: Credit Field (Form Element)
 type: module
-description: Defines credit card form field elements for use in the Drupal FormAPI.
+description: Defines credit card form field elements for use with the Form API.
 core: 8.x
+core_version_requirement: ^8 || ^9
