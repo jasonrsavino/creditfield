@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\creditfield\Element\CardNumber.
- */
-
 namespace Drupal\creditfield\Element;
 
 use \Drupal\Core\Render\Element\FormElement;

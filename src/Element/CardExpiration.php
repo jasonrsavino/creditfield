@@ -1,16 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\creditfield\Render\CardExpiration.
- */
-
 namespace Drupal\creditfield\Element;
 
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
-use \Drupal\Component\Utility\Unicode as Unicode;
 
 /**
  * Provides a one-line credit card number field form element.

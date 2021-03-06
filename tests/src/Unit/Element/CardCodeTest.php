@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\creditfield\Unit\Element\CardCodeTest.
- */
-
 namespace Drupal\Tests\creditfield\Unit\Element;
 
 use Drupal\creditfield\Element\CardCode;

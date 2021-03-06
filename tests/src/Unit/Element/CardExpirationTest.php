@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\creditfield\Unit\Element\CardExpirationTest.
- */
-
 namespace Drupal\Tests\creditfield\Unit\Element;
 
 use Drupal\creditfield\Element\CardExpiration;
