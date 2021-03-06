@@ -92,6 +92,10 @@ class CardExpiration extends FormElement {
     $year = (int) $dateparts[0];
     $month = (int) $dateparts[1];
 
+    if ($month > 12) {
+      return FALSE;
+    }
+
     if ($year < date('Y') || !is_integer($year)) {
       return FALSE;
     }
