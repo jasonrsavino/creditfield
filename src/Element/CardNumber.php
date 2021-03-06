@@ -103,7 +103,7 @@ class CardNumber extends FormElement {
     }
 
     // Set the string length and parity
-    $cardnumber_length = Unicode::strlen($value);
+    $cardnumber_length = mb_strlen($value);
 
     if ($cardnumber_length < 14 || $cardnumber_length > 16) {
       return FALSE;

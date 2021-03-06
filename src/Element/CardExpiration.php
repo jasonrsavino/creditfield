@@ -90,7 +90,7 @@ class CardExpiration extends FormElement {
    * @return bool
    */
   public static function dateIsValid($value) {
-    if (!Unicode::strlen($value)) {
+    if (!mb_strlen($value)) {
       return FALSE;
     }
 
