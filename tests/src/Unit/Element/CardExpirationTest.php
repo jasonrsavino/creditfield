@@ -40,6 +40,7 @@ class CardExpirationTest extends UnitTestCase {
       [$year + 1 . '-' . '03'],
       [$year + 2 . '-' . '07'],
       [$year + 2 . '-' . '12'],
+      [date('Y') . '-' . date('m')],
     ];
   }
 
@@ -55,13 +56,13 @@ class CardExpirationTest extends UnitTestCase {
       [$year . '-' . '01'],
       [$year + 1 . '-' . '09'],
       [$year + 2 . '-' . '04'],
-      [date('Y') . '-' . date('m')],
       [$year + 2 . '-' . '13'],
       [$year + 2 . '-' . '-2'],
       [$year + 2 . '-' . '0'],
       [$year + 1 . '-' . '24'],
       [$year - 5 . '-' . '13'],
       [$year - 5 . '-' . '32'],
+      [date('Y') . '-' . (date('m') - 1)]
     ];
   }
 }

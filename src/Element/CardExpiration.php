@@ -100,7 +100,7 @@ class CardExpiration extends FormElement {
       return FALSE;
     }
 
-    if ($year == date('Y') && $month <= date('m')) {
+    if ($year == date('Y') && $month < date('m')) {
       return FALSE;
     }
 
