@@ -10,7 +10,6 @@ namespace Drupal\creditfield\Element;
 use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
 use \Drupal\Core\Form\FormStateInterface;
-use \Drupal\Component\Utility\Unicode as Unicode;
 
 /**
  * Provides a one-line credit card number field form element.
@@ -25,22 +24,22 @@ class CardCode extends FormElement {
   public function getInfo() {
     $class = get_class($this);
 
-    return array(
+    return [
       '#input' => TRUE,
       '#maxlength' => 4,
       '#autocomplete_route_name' => FALSE,
-      '#element_validate' => array(
-        array($class, 'validateCardCode')
-      ),
-      '#process' => array(
-        array($class, 'processCardCode'),
-      ),
-      '#pre_render' => array(
-        array($class, 'preRenderCardCode'),
-      ),
+      '#element_validate' => [
+        [$class, 'validateCardCode']
+      ],
+      '#process' => [
+        [$class, 'processCardCode'],
+      ],
+      '#pre_render' => [
+        [$class, 'preRenderCardCode'],
+      ],
       '#theme' => 'input__textfield',
-      '#theme_wrappers' => array('form_element'),
-    );
+      '#theme_wrappers' => ['form_element'],
+    ];
   }
 
   /**
@@ -67,7 +66,7 @@ class CardCode extends FormElement {
     if ($input !== FALSE && $input !== NULL) {
       // Equate $input to the form value to ensure it's marked for
       // validation.
-      return str_replace(array("\r", "\n"), '', $input);
+      return str_replace(["\r", "\n"], '', $input);
     }
   }
 
@@ -84,8 +83,8 @@ class CardCode extends FormElement {
    */
   public static function preRenderCardCode($element) {
     $element['#attributes']['type'] = 'text';
-    Element::setAttributes($element, array('id', 'name', 'value', 'size', 'maxlength', 'placeholder'));
-    static::setAttributes($element, array('form-text'));
+    Element::setAttributes($element, ['id', 'name', 'value', 'size', 'maxlength', 'placeholder']);
+    static::setAttributes($element, ['form-text']);
     return $element;
   }
 

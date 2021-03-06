@@ -25,20 +25,20 @@ class CardExpiration extends FormElement {
   public function getInfo() {
     $class = get_class($this);
 
-    return array(
+    return [
       '#input' => TRUE,
-      '#element_validate' => array(
-        array($class, 'validateCardExpiration')
-      ),
-      '#process' => array(
-        array($class, 'processCardExpiration'),
-      ),
-      '#pre_render' => array(
-        array($class, 'preRenderCardExpiration'),
-      ),
+      '#element_validate' => [
+        [$class, 'validateCardExpiration']
+      ],
+      '#process' => [
+        [$class, 'processCardExpiration'],
+      ],
+      '#pre_render' => [
+        [$class, 'preRenderCardExpiration'],
+      ],
       '#theme' => 'input__date',
-      '#theme_wrappers' => array('form_element'),
-    );
+      '#theme_wrappers' => ['form_element'],
+    ];
   }
 
   /**
@@ -78,8 +78,8 @@ class CardExpiration extends FormElement {
    */
   public static function preRenderCardExpiration($element) {
     $element['#attributes']['type'] = 'month';
-    Element::setAttributes($element, array('id', 'name', 'type', 'min', 'max', 'step', 'value', 'size'));
-    static::setAttributes($element, array('form-' . $element['#attributes']['type']));
+    Element::setAttributes($element, ['id', 'name', 'type', 'min', 'max', 'step', 'value', 'size']);
+    static::setAttributes($element, ['form-' . $element['#attributes']['type']]);
 
     return $element;
   }

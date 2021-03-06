@@ -10,7 +10,6 @@ namespace Drupal\creditfield\Element;
 use \Drupal\Core\Render\Element\FormElement;
 use \Drupal\Core\Render\Element;
 use \Drupal\Core\Form\FormStateInterface;
-use \Drupal\Component\Utility\Unicode as Unicode;
 
 /**
  * Provides a one-line credit card number field form element.
@@ -25,23 +24,23 @@ class CardNumber extends FormElement {
   public function getInfo() {
     $class = get_class($this);
 
-    return array(
+    return [
       '#input' => TRUE,
       '#size' => 60,
       '#maxlength' => 16,
       '#autocomplete_route_name' => FALSE,
-      '#element_validate' => array(
-        array($class, 'validateCardNumber')
-      ),
-      '#process' => array(
-        array($class, 'processCardNumber'),
-      ),
-      '#pre_render' => array(
-        array($class, 'preRenderCardNumber'),
-      ),
+      '#element_validate' => [
+        [$class, 'validateCardNumber']
+      ],
+      '#process' => [
+        [$class, 'processCardNumber'],
+      ],
+      '#pre_render' => [
+        [$class, 'preRenderCardNumber'],
+      ],
       '#theme' => 'input__textfield',
-      '#theme_wrappers' => array('form_element'),
-    );
+      '#theme_wrappers' => ['form_element'],
+    ];
   }
 
   /**
@@ -68,7 +67,7 @@ class CardNumber extends FormElement {
     if ($input !== FALSE && $input !== NULL) {
       // Equate $input to the form value to ensure it's marked for
       // validation.
-      return str_replace(array("\r", "\n"), '', $input);
+      return str_replace(["\r", "\n"], '', $input);
     }
   }
 
@@ -85,8 +84,8 @@ class CardNumber extends FormElement {
    */
   public static function preRenderCardNumber($element) {
     $element['#attributes']['type'] = 'text';
-    Element::setAttributes($element, array('id', 'name', 'value', 'size', 'maxlength', 'placeholder'));
-    static::setAttributes($element, array('form-text'));
+    Element::setAttributes($element, ['id', 'name', 'value', 'size', 'maxlength', 'placeholder']);
+    static::setAttributes($element, ['form-text']);
     return $element;
   }
 
