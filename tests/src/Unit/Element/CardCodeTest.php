@@ -16,7 +16,7 @@ class CardCodeTest extends UnitTestCase {
    * @dataProvider providerValidCardCodeNumbers
    */
   public function testGoodCodeValidation($number) {
-    return $this->assertTrue(CardCode::numberIsValid($number), 'Number code "' . $number . '" should have passed validation, but did not.');
+    $this->assertTrue(CardCode::numberIsValid($number), 'Number code "' . $number . '" should have passed validation, but did not.');
   }
 
   /**
@@ -24,7 +24,7 @@ class CardCodeTest extends UnitTestCase {
    * @dataProvider providerInvalidCardCodeNumbers
    */
   public function testBadCodeValidation($number) {
-    return $this->assertFalse(CardCode::numberIsValid($number), 'Number code "' . $number . '" should not have passed validation, but did.');
+    $this->assertFalse(CardCode::numberIsValid($number), 'Number code "' . $number . '" should not have passed validation, but did.');
   }
 
   /**
@@ -32,13 +32,13 @@ class CardCodeTest extends UnitTestCase {
    * @return array
    */
   public function providerValidCardCodeNumbers() {
-    return array(
-      array('012'),
-      array('123'),
-      array('555'),
-      array('0123'),
-      array('1234'),
-    );
+    return [
+      ['012'],
+      ['123'],
+      ['555'],
+      ['0123'],
+      ['1234'],
+    ];
   }
 
   /**
@@ -46,13 +46,13 @@ class CardCodeTest extends UnitTestCase {
    * @return array
    */
   public function providerInvalidCardCodeNumbers() {
-    return array(
-      array('1.1'),
-      array('4af'),
-      array('8724372'),
-      array('3'),
-      array('-134'),
-      array(''),
-    );
+    return [
+      ['1.1'],
+      ['4af'],
+      ['8724372'],
+      ['3'],
+      ['-134'],
+      [''],
+    ];
   }
 }

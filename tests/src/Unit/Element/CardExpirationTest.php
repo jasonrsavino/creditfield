@@ -16,7 +16,7 @@ class CardExpirationTest extends UnitTestCase {
    * @dataProvider providerValidCardExpirationDate
    */
   public function testGoodDateValidation($value) {
-    return $this->assertTrue(CardExpiration::dateIsValid($value), 'Date "' . $value . '" should have passed validation, but did not.');
+    $this->assertTrue(CardExpiration::dateIsValid($value), 'Date "' . $value . '" should have passed validation, but did not.');
   }
 
   /**
@@ -24,7 +24,7 @@ class CardExpirationTest extends UnitTestCase {
    * @dataProvider providerInvalidCardExpirationDate
    */
   public function testBadDateValidation($value) {
-    return $this->assertFalse(CardExpiration::dateIsValid($value), 'Date "' . $value . '" should not have passed validation, but did.');
+    $this->assertFalse(CardExpiration::dateIsValid($value), 'Date "' . $value . '" should not have passed validation, but did.');
   }
 
   /**
@@ -35,11 +35,11 @@ class CardExpirationTest extends UnitTestCase {
   public function providerValidCardExpirationDate() {
     $year = date('Y') + 1;
 
-    return array(
-      array($year . '-' . '01'),
-      array($year + 1 . '-' . '01'),
-      array($year + 2 . '-' . '01'),
-    );
+    return [
+      [$year . '-' . '01'],
+      [$year + 1 . '-' . '01'],
+      [$year + 2 . '-' . '01'],
+    ];
   }
 
   /**
@@ -50,11 +50,11 @@ class CardExpirationTest extends UnitTestCase {
   public function providerInvalidCardExpirationDate() {
     $year = date('Y') - 3;
 
-    return array(
-      array($year . '-' . '01'),
-      array($year + 1 . '-' . '01'),
-      array($year + 2 . '-' . '01'),
-      array(date('Y') . '-' . date('m'))
-    );
+    return [
+      [$year . '-' . '01'],
+      [$year + 1 . '-' . '01'],
+      [$year + 2 . '-' . '01'],
+      [date('Y') . '-' . date('m')]
+    ];
   }
 }

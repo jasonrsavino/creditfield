@@ -16,7 +16,7 @@ class CardNumberTest extends UnitTestCase {
    * @dataProvider providerValidCardNumbers
    */
   public function testGoodNumberValidation($number) {
-    return $this->assertTrue(CardNumber::numberIsValid($number), 'Number "' . $number . '" should have passed validation, but did not.');
+    $this->assertTrue(CardNumber::numberIsValid($number), 'Number "' . $number . '" should have passed validation, but did not.');
   }
 
   /**
@@ -24,7 +24,7 @@ class CardNumberTest extends UnitTestCase {
    * @dataProvider providerInvalidCardNumbers
    */
   public function testBadNumberValidation($number) {
-    return $this->assertFalse(CardNumber::numberIsValid($number), 'Number "' . $number . '" should not have passed validation, but did.');
+    $this->assertFalse(CardNumber::numberIsValid($number), 'Number "' . $number . '" should not have passed validation, but did.');
   }
 
   /**
@@ -32,22 +32,22 @@ class CardNumberTest extends UnitTestCase {
    * @return array
    */
   public function providerValidCardNumbers() {
-    return array(
-      array('4242424242424242'),
-      array('4012888888881881'),
-      array('4000056655665556'),
-      array('5555555555554444'),
-      array('5200828282828210'),
-      array('5105105105105100'),
-      array('378282246310005'),
-      array('371449635398431'),
-      array('6011111111111117'),
-      array('6011000990139424'),
-      array('30569309025904'),
-      array('38520000023237'),
-      array('3530111333300000'),
-      array('3566002020360505')
-    );
+    return [
+      ['4242424242424242'],
+      ['4012888888881881'],
+      ['4000056655665556'],
+      ['5555555555554444'],
+      ['5200828282828210'],
+      ['5105105105105100'],
+      ['378282246310005'],
+      ['371449635398431'],
+      ['6011111111111117'],
+      ['6011000990139424'],
+      ['30569309025904'],
+      ['38520000023237'],
+      ['3530111333300000'],
+      ['3566002020360505']
+    ];
   }
 
   /**
@@ -55,15 +55,15 @@ class CardNumberTest extends UnitTestCase {
    * @return array
    */
   public function providerInvalidCardNumbers() {
-    return array(
-      array('424224242'),
-      array('4012888888881881445353'),
-      array('-4242424242424242'),
-      array('40128888.10'),
-      array('4242aBcD24244242'),
-      array('ABCDEFGHIJKL'),
-      array('1234828282828210'),
-      array(''),
-    );
+    return [
+      ['424224242'],
+      ['4012888888881881445353'],
+      ['-4242424242424242'],
+      ['40128888.10'],
+      ['4242aBcD24244242'],
+      ['ABCDEFGHIJKL'],
+      ['1234828282828210'],
+      [''],
+    ];
   }
 }
