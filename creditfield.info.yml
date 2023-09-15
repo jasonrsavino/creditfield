@@ -1,5 +1,4 @@
 name: Credit Field (Form Element)
 type: module
 description: Defines credit card form field elements for use with the Form API.
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
